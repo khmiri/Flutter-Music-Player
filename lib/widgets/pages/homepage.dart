@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../views/my_app_bar.dart';
+import '../views/mybottom_navbar.dart';
 import '../views/rotated_text_btn.dart';
 import '../views/play_list_item.dart';
 
@@ -13,18 +15,19 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final PageController controller = PageController(viewportFraction: 0.8);
-  static const List<Color> _colorsList = [
-    Colors.red,
-    Colors.amber,
-    Colors.blue,
-    Colors.black38
-  ];
 
   static const List<String> _imageAssets = [
-    "albumOne",
-    "albumTwo",
-    "albumThree",
-    "albumFour",
+    "assets/images/albumOne.jpeg",
+    "assets/images/albumTwo.jpeg",
+    "assets/images/albumThree.jpeg",
+    "assets/images/albumFour.jpeg",
+  ];
+
+  static const List<Map> songs = [
+    {"imgPath": "assets/songs/123.png", "title": "Heaven!","subTitle":"Mr.Guitar"},
+    {"imgPath": "assets/songs/124.png", "title": "You","subTitle":"Ali Gatie"},
+    {"imgPath": "assets/songs/125.png", "title": "Once Upon a Time","subTitle":"Unknown"},
+    {"imgPath": "assets/songs/126.png", "title": "Paris","subTitle":"Bilal"},
   ];
 
   int selectedItem = 0;
@@ -34,26 +37,12 @@ class _MyHomePageState extends State<MyHomePage> {
     final querySize = MediaQuery.of(context).size;
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        toolbarHeight: 100,
-        shadowColor: Colors.transparent,
-        title: Row(children: [
-          const Text(
-            "Discover",
-            style: TextStyle(
-              fontSize: 30,
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Expanded(child: Container()),
-          const Icon(
-            Icons.sort,
-            color: Colors.black,
-          )
-        ]),
-      ),
+      backgroundColor: Colors.white,
+      //AppBar with title and icon
+      appBar: const MyAppBar(),
+      //
+      bottomNavigationBar: const MyBottomNavBar(),
+
       body: SafeArea(
         child: SingleChildScrollView(
             child: Row(
@@ -63,32 +52,32 @@ class _MyHomePageState extends State<MyHomePage> {
               width: querySize.width * .2,
               child: Column(
                 children: [
-                  Container(
+                  const SizedBox(
                     width: double.infinity,
-                    height: 300,
-                    decoration: const BoxDecoration(color: Colors.purpleAccent),
-                    child: const RotatedTextBtn(
+                    height: 350,
+                    // decoration: const BoxDecoration(color: Colors.purpleAccent),
+                    child: RotatedTextBtn(
                       myLable: "Your Playlists",
                       myIcon: Icons.collections,
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     width: double.infinity,
                     height: 300,
-                    decoration: const BoxDecoration(color: Colors.deepPurple),
+                    // decoration: const BoxDecoration(color: Colors.deepPurple),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                      RotatedTextBtn(
-                        myLable: "Recent",
-                        //myIcon: Icons.collections,
-                      ),
-                      RotatedTextBtn(
-                        myLable: "Like",
-                        //myIcon: Icons.collections,
-                      ),
-                    ]),
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          RotatedTextBtn(
+                            myLable: "Recent",
+                          ),
+                          RotatedTextBtn(
+                            myLable: "Like",
+                            disabled: true,
+                            //myIcon: Icons.collections,
+                          ),
+                        ]),
                   )
                 ],
               ),
@@ -98,11 +87,11 @@ class _MyHomePageState extends State<MyHomePage> {
               width: querySize.width * .8,
               child: Column(
                 children: [
-                  Container(
-                    padding: const EdgeInsets.all(10),
+                  SizedBox(
+                    //padding: const EdgeInsets.all(10),
                     width: double.infinity,
-                    height: 300,
-                    decoration: const BoxDecoration(color: Colors.purple),
+                    height: 350,
+                    // decoration: const BoxDecoration(color: Colors.purple),
                     child: PageView.builder(
                       /// [PageView.scrollDirection] defaults to [Axis.horizontal].
                       /// Use [Axis.vertical] to scroll vertically.
@@ -111,37 +100,32 @@ class _MyHomePageState extends State<MyHomePage> {
                         setState(() {
                           selectedItem = index;
                         });
-                        print("$selectedItem");
                       },
                       controller: controller,
                       padEnds: false,
                       itemBuilder: ((context, index) => PlayListItem(
                             index: index,
                             selectedIndex: selectedItem,
+                            imagePath: _imageAssets[index],
                           )),
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.only(top: 10, bottom: 10),
                     width: double.infinity,
                     height: 300,
-                    decoration:
-                        const BoxDecoration(color: Colors.deepPurpleAccent),
+                    // decoration:
+                    //     const BoxDecoration(color: Colors.deepPurpleAccent),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: _imageAssets.map((e) {
-                        return Expanded(
-                          child: ListTile(
-                            minLeadingWidth: 100,
-                            leading: SizedBox(
-                              height: 100,
-                              child: Image.asset(
-                                  "assets/images/${e.toString()}.jpeg"),
-                            ),
-                            title: Text(e.toString()),
-                          ),
-                        );
+                      //
+                      //Generating a list
+                      //by mapping through a list of songs (images and titles)
+                      //
+                      children: songs.map((e) {
+                        //Recent item ( ListTile )
+                        return _recentItem(e);
                       }).toList(),
                     ),
                   ),
@@ -150,6 +134,28 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ],
         )),
+      ),
+    );
+  }
+
+//
+// this method creates a listTile for recent songs list
+//
+  Widget _recentItem(Map e) {
+    return Expanded(
+      child: ListTile(
+
+        leading: SizedBox(
+          height: 100,
+          //ClipRRect so Image widget can have rounded corners
+          child: ClipRRect(
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
+            child: Image.asset(e["imgPath"].toString()),
+          ),
+        ),
+        title: Text(e["title"].toString()),
+        subtitle: Text(e["subTitle"].toString()),
+        
       ),
     );
   }

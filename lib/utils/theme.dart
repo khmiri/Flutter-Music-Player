@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
  
  ThemeData customLightTheme() {
  
- TextTheme _customLightThemesTextTheme(TextTheme base) {
+ TextTheme customLightThemesTextTheme(TextTheme base) {
  return base.copyWith(
  headline1: base.headline1?.copyWith(
  fontSize: 22.0,
@@ -22,20 +22,19 @@ import 'package:flutter/material.dart';
  color: Colors.grey,
  ),
  caption: base.caption?.copyWith(
- color: Color(0xFFCCC5AF),
+ color:const Color(0xFFCCC5AF),
  ),
- bodyText2: base.bodyText2?.copyWith(color: Color(0xFF807A6B)),
+ bodyText2: base.bodyText2?.copyWith(color:const Color(0xFF807A6B)),
  bodyText1: base.bodyText1?.copyWith(color: Colors.brown),
  );
  }
  
  final ThemeData lightTheme = ThemeData.light();
  return lightTheme.copyWith(
- textTheme: _customLightThemesTextTheme(lightTheme.textTheme),
- primaryColor: Color(0xffce107c),
- indicatorColor: Color(0xFF807A6B),
- scaffoldBackgroundColor: Color(0xFFF5F5F5),
- accentColor: Color(0xFFFFF8E1),
+ textTheme: customLightThemesTextTheme(lightTheme.textTheme),
+ primaryColor:const Color(0xffce107c),
+ indicatorColor:const Color(0xFF807A6B),
+ scaffoldBackgroundColor:const Color(0xFFF5F5F5),
  primaryIconTheme: lightTheme.primaryIconTheme.copyWith(
  color: Colors.white,
  size: 20,
@@ -43,10 +42,9 @@ import 'package:flutter/material.dart';
  iconTheme: lightTheme.iconTheme.copyWith(
  color: Colors.white,
  ),
- buttonColor: Colors.white,
  backgroundColor: Colors.white,
  tabBarTheme: lightTheme.tabBarTheme.copyWith(
- labelColor: Color(0xffce107c),
+ labelColor:const Color(0xffce107c),
  unselectedLabelColor: Colors.grey,
  ),
  buttonTheme: lightTheme.buttonTheme.copyWith(buttonColor: Colors.red),
@@ -59,8 +57,7 @@ import 'package:flutter/material.dart';
  final ThemeData darkTheme = ThemeData.dark();
  return darkTheme.copyWith(
  primaryColor: Colors.black38,
- indicatorColor: Color(0xFF807A6B),
- accentColor: Color(0xFFFFF8E1),
+ indicatorColor:const Color(0xFF807A6B),
  primaryIconTheme: darkTheme.primaryIconTheme.copyWith(
  color: Colors.green,
  size: 20,
