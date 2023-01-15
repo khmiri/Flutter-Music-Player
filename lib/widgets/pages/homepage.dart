@@ -3,6 +3,7 @@ import '../views/my_app_bar.dart';
 import '../views/mybottom_navbar.dart';
 import '../views/rotated_text_btn.dart';
 import '../views/play_list_item.dart';
+import '../views/song_listtile.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -24,10 +25,22 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
 
   static const List<Map> songs = [
-    {"imgPath": "assets/songs/123.png", "title": "Heaven!","subTitle":"Mr.Guitar"},
-    {"imgPath": "assets/songs/124.png", "title": "You","subTitle":"Ali Gatie"},
-    {"imgPath": "assets/songs/125.png", "title": "Once Upon a Time","subTitle":"Unknown"},
-    {"imgPath": "assets/songs/126.png", "title": "Paris","subTitle":"Bilal"},
+    {
+      "imgPath": "assets/songs/123.png",
+      "title": "Heaven!",
+      "subTitle": "Mr.Guitar"
+    },
+    {
+      "imgPath": "assets/songs/124.png",
+      "title": "You",
+      "subTitle": "Ali Gatie"
+    },
+    {
+      "imgPath": "assets/songs/125.png",
+      "title": "Once Upon a Time",
+      "subTitle": "Unknown"
+    },
+    {"imgPath": "assets/songs/126.png", "title": "Paris", "subTitle": "Bilal",},
   ];
 
   int selectedItem = 0;
@@ -38,16 +51,19 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      //AppBar with title and icon
+      //Custom AppBar with title and icon
       appBar: const MyAppBar(),
       //
+      //Custom bottom navBar
       bottomNavigationBar: const MyBottomNavBar(),
-
+      //
       body: SafeArea(
         child: SingleChildScrollView(
             child: Row(
           children: [
-            // first column
+            // first column starting from the left of the screen
+            // this column contains only Text Buttons ( Playlists, recent and liked)
+            //
             SizedBox(
               width: querySize.width * .2,
               child: Column(
@@ -55,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   const SizedBox(
                     width: double.infinity,
                     height: 350,
-                    // decoration: const BoxDecoration(color: Colors.purpleAccent),
+                    // Top/First button 
                     child: RotatedTextBtn(
                       myLable: "Your Playlists",
                       myIcon: Icons.collections,
@@ -73,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             myLable: "Recent",
                           ),
                           RotatedTextBtn(
-                            myLable: "Like",
+                            myLable: "Liked",
                             disabled: true,
                             //myIcon: Icons.collections,
                           ),
@@ -125,7 +141,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       //
                       children: songs.map((e) {
                         //Recent item ( ListTile )
-                        return _recentItem(e);
+                        //using Custom widget called SongListTile
+
+                        return SongListTile(songData: e);
                       }).toList(),
                     ),
                   ),
@@ -138,25 +156,8 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-//
-// this method creates a listTile for recent songs list
-//
-  Widget _recentItem(Map e) {
-    return Expanded(
-      child: ListTile(
 
-        leading: SizedBox(
-          height: 100,
-          //ClipRRect so Image widget can have rounded corners
-          child: ClipRRect(
-            borderRadius: const BorderRadius.all(Radius.circular(10)),
-            child: Image.asset(e["imgPath"].toString()),
-          ),
-        ),
-        title: Text(e["title"].toString()),
-        subtitle: Text(e["subTitle"].toString()),
-        
-      ),
-    );
-  }
+  
 }
+
+

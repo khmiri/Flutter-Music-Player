@@ -55,7 +55,7 @@ class _PlayListItemState extends State<PlayListItem> {
         //
         child: ClipRRect(
           borderRadius: BorderRadius.circular(30.0),
-          //Album cover image path, if null we use default pic
+          //Album image path, if null, we'd use a placeholder
           child: Image.asset(
             widget.imagePath ?? "assets/images/ph.png",
             height: isSelected ? 300 : 250,
