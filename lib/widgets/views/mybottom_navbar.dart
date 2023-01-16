@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// this enum indicates all items in this BottomNavBar
 enum BottomNavBarSelectedItem { home, search, playlists, liked }
 
 class MyBottomNavBar extends StatelessWidget {
