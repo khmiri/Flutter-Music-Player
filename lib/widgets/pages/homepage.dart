@@ -14,6 +14,10 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
+  
+ enum BottomNavBarSelectedItem { home, search, playlists, liked }
+
+
 class _MyHomePageState extends State<MyHomePage> {
   final PageController controller = PageController(viewportFraction: 0.8);
 
@@ -43,6 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
     {"imgPath": "assets/songs/126.png", "title": "Paris", "subTitle": "Bilal",},
   ];
 
+
   int selectedItem = 0;
 
   @override
@@ -55,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: const MyAppBar(),
       //
       //Custom bottom navBar
-      bottomNavigationBar: const MyBottomNavBar(),
+      bottomNavigationBar:  MyBottomNavBar(selectedItem: BottomNavBarSelectedItem.home.toString(),),
       //
       body: SafeArea(
         child: SingleChildScrollView(
