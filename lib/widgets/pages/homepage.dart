@@ -135,8 +135,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     padding: const EdgeInsets.only(top: 10, bottom: 10),
                     width: double.infinity,
                     height: 300,
-                    // decoration:
-                    //     const BoxDecoration(color: Colors.deepPurpleAccent),
+                    
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
