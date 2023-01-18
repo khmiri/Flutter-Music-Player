@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'utils/theme.dart';
-import 'widgets/pages/homepage.dart';
+import 'utils/router.dart';
+import 'utils/constants.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -11,10 +13,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+
+      onGenerateRoute: MyRouter.generateRoute,
       title: 'Flutter Music App Player',
       theme: customLightTheme(),
       darkTheme: customDarkTheme(),
-      home: const MyHomePage(title: 'Flutter Music App Player'),
+      
+      initialRoute: homeRoute,
+     
     );
   }
 }

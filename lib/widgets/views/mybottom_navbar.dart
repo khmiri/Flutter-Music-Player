@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:music_app/utils/constants.dart';
 
 // this enum indicates all items in this BottomNavBar
 enum BottomNavBarSelectedItem { home, search, playlists, liked }
@@ -13,29 +14,28 @@ class MyBottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     /*
-       Convert selectedItem string to enum
+       Convert [selectedItem] string to enum
        the argument that was received by the constructor is of type String
        to compare it with enum we should cast it or convert it to type enum
     */
 
     BottomNavBarSelectedItem navSelectedItem = BottomNavBarSelectedItem.values
         .firstWhere((e) => e.toString() == selectedItem);
-    
+
     /*  
-        navSelectedItem is type enum, so we are going to use it below,
+        [navSelectedItem] is type enum, so we are going to use it below,
         Inside Customs IconButton within this NavBar
   
     */
 
     return Container(
       height: 100,
-      decoration: const BoxDecoration(
-        color: Colors.black12,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
+      decoration: BoxDecoration(
+        color: Colors.grey.shade200,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(40),
+          topRight: Radius.circular(40),
         ),
       ),
       child: Row(
@@ -48,6 +48,8 @@ class MyBottomNavBar extends StatelessWidget {
             navSelectedItem: navSelectedItem,
             currentItem: BottomNavBarSelectedItem.home,
             myIcon: Icons.home_outlined,
+            myCallBack: (() =>
+                Navigator.pushNamed(context, homeRoute)),
           ),
           //
           //
@@ -55,6 +57,8 @@ class MyBottomNavBar extends StatelessWidget {
             navSelectedItem: navSelectedItem,
             currentItem: BottomNavBarSelectedItem.search,
             myIcon: Icons.search,
+            myCallBack: (() =>
+                Navigator.pushNamed(context, singleplaylistRoute)),
           ),
           //
           //
@@ -62,6 +66,9 @@ class MyBottomNavBar extends StatelessWidget {
             navSelectedItem: navSelectedItem,
             currentItem: BottomNavBarSelectedItem.playlists,
             myIcon: Icons.collections_bookmark_outlined,
+            myCallBack: () {
+              Navigator.pushNamed(context, playlistsRoute);
+            },
           ),
           //
           //
@@ -69,6 +76,7 @@ class MyBottomNavBar extends StatelessWidget {
             navSelectedItem: navSelectedItem,
             currentItem: BottomNavBarSelectedItem.liked,
             myIcon: Icons.favorite_outline,
+            myCallBack: (() => Navigator.pushNamed(context, likedSongsRoute)),
           ),
         ],
       ),
@@ -76,10 +84,8 @@ class MyBottomNavBar extends StatelessWidget {
   }
 }
 
-
-
 //
-//Custom IconButton widget for BottomNavBar 
+//Custom IconButton widget for BottomNavBar
 //
 class NavBarIconButton extends StatelessWidget {
   const NavBarIconButton({
@@ -105,17 +111,33 @@ class NavBarIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      enableFeedback: false,
-      onPressed: myCallBack,
-      icon: Icon(
-        myIcon,
-        //if The selectedItem equals the current item we change the color ( black for selected )
-        color: navSelectedItem == currentItem
-            ? Colors.black
-            : Colors.black45,
-        size: 35,
+    return Stack(alignment: Alignment.center, children: [
+      //a simple Icon button
+      IconButton(
+        enableFeedback: false,
+        onPressed: myCallBack,
+        icon: Icon(
+          myIcon,
+          //if The [selectedItem] equals the current item we change the color ( black for selected )
+          color: navSelectedItem == currentItem ? Colors.black : Colors.black45,
+          size: 35,
+        ),
       ),
-    );
+
+      //this container represents the small dot below the Icon Button,
+      // only visible if the button is the selected item
+      navSelectedItem == currentItem
+          ? Container(
+              margin: const EdgeInsets.only(top: 30, left: 30),
+              height: 10,
+              width: 10,
+              decoration: BoxDecoration(
+                  color: Colors.pink.shade200,
+                  borderRadius: const BorderRadius.all(Radius.circular(10))),
+            )
+          : const SizedBox(
+              height: 0,
+            ),
+    ]);
   }
 }

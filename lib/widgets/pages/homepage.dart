@@ -6,9 +6,8 @@ import '../views/play_list_item.dart';
 import '../views/song_listtile.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({super.key,});
 
-  final String title;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -57,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       //Custom AppBar with title and icon
-      appBar: const MyAppBar(),
+      appBar: const MyAppBar(title: "Discover"),
       //
       //Custom bottom navBar
       bottomNavigationBar:  MyBottomNavBar(selectedItem: BottomNavBarSelectedItem.home.toString(),),
