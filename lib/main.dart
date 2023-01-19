@@ -14,9 +14,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
 
+        // routes defined in a seperated file
       onGenerateRoute: MyRouter.generateRoute,
-      title: 'Flutter Music App Player',
+
+      title: 'Music App Player',
       theme: customLightTheme(),
+
       darkTheme: customDarkTheme(),
       
       initialRoute: homeRoute,

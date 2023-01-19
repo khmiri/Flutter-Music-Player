@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../views/my_app_bar.dart';
 import '../views/mybottom_navbar.dart';
 
