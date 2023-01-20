@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SongListTile extends StatelessWidget {
+  // Represents all song needed infos [image path, title, subtitle]
   final Map? songData;
 
   const SongListTile({
@@ -21,7 +22,9 @@ class SongListTile extends StatelessWidget {
             child: Image.asset(songData!["imgPath"].toString()),
           ),
         ),
+        //Song title 
         title: Text(songData!["title"].toString()),
+        //Song subtitle 
         subtitle: Text(songData!["subTitle"].toString()),
       ),
     );
