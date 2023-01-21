@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:music_app/widgets/pages/homepage.dart';
 import 'package:music_app/widgets/pages/likedsongs.dart';
-import 'package:music_app/widgets/pages/playlistpage.dart';
+import 'package:music_app/widgets/pages/playlistspage.dart';
 import 'package:music_app/widgets/pages/singleplaylist.dart';
 import '../utils/constants.dart';
 
