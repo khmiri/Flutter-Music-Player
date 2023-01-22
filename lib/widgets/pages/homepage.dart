@@ -4,6 +4,7 @@ import '../views/mybottom_navbar.dart';
 import '../views/rotated_text_btn.dart';
 import '../views/play_list_item.dart';
 import '../views/song_listtile.dart';
+import '../../utils/dummy_data.dart' as dummy;
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key,});
@@ -19,33 +20,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final PageController controller = PageController(viewportFraction: 0.8);
-
-  static const List<String> _imageAssets = [
-    "assets/images/albumOne.jpeg",
-    "assets/images/albumTwo.jpeg",
-    "assets/images/albumThree.jpeg",
-    "assets/images/albumFour.jpeg",
-  ];
-
-  static const List<Map> songs = [
-    {
-      "imgPath": "assets/songs/123.png",
-      "title": "Heaven!",
-      "subTitle": "Mr.Guitar"
-    },
-    {
-      "imgPath": "assets/songs/124.png",
-      "title": "You",
-      "subTitle": "Ali Gatie"
-    },
-    {
-      "imgPath": "assets/songs/125.png",
-      "title": "Once Upon a Time",
-      "subTitle": "Unknown"
-    },
-    {"imgPath": "assets/songs/126.png", "title": "Paris", "subTitle": "Bilal",},
-  ];
-
 
   int selectedItem = 0;
 
@@ -126,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       itemBuilder: ((context, index) => PlayListItem(
                             index: index,
                             selectedIndex: selectedItem,
-                            imagePath: _imageAssets[index],
+                            imagePath: dummy.imageAssets[index],
                           )),
                     ),
                   ),
@@ -142,7 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       //Generating a list
                       //by mapping through a list of songs (images and titles)
                       //
-                      children: songs.map((e) {
+                      children: dummy.songs.map((e) {
                         //Recent item ( ListTile )
                         //using Custom widget called SongListTile
 

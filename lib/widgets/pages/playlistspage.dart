@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:music_app/widgets/views/my_app_bar.dart';
 import 'package:music_app/widgets/views/mybottom_navbar.dart';
+import '../../utils/dummy_data.dart' as dummy;
 
 enum BottomNavBarSelectedItem { home, search, playlists, liked }
 
@@ -24,10 +25,8 @@ class PlayListsPage extends StatelessWidget {
                     crossAxisSpacing: 8,
                     crossAxisCount: 2,
                   ),
-                  itemCount: 20,
+                  itemCount: dummy.imageAssets.length,
                   itemBuilder: ((context, index) {
-
-
                     return gridItemBuilder(index);
                   })),
             ),
@@ -40,13 +39,14 @@ class PlayListsPage extends StatelessWidget {
   Widget gridItemBuilder(int index) {
     return Card(
       shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10))),
-      child: Container(
+          borderRadius: BorderRadius.all(Radius.circular(20))),
+      child: SizedBox(
         height: 40,
         width: 10,
-        decoration: const BoxDecoration(
-            color: Colors.purpleAccent,
-            borderRadius: BorderRadius.all(Radius.circular(10))),
+         child: ClipRRect(
+          borderRadius: const BorderRadius.all(Radius.circular(20)),
+          child: Image.asset(dummy.imageAssets[index])),
+
       ),
     );
   }
