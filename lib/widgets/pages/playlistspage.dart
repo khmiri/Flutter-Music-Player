@@ -2,19 +2,52 @@ import 'package:flutter/material.dart';
 import 'package:music_app/widgets/views/my_app_bar.dart';
 import 'package:music_app/widgets/views/mybottom_navbar.dart';
 import '../../utils/dummy_data.dart' as dummy;
+import '../views/playlists_grid_item.dart';
 
 enum BottomNavBarSelectedItem { home, search, playlists, liked }
 
-class PlayListsPage extends StatelessWidget {
+class PlayListsPage extends StatefulWidget {
   const PlayListsPage({super.key});
+
+  @override
+  State<PlayListsPage> createState() => _PlayListsPageState();
+}
+
+class _PlayListsPageState extends State<PlayListsPage>
+    with SingleTickerProviderStateMixin {
+
+
+  late final AnimationController _controller = AnimationController(
+    duration: const Duration(seconds: 1),
+    vsync: this,
+  );
+
+  late final Animation<Offset> _offsetAnimation = Tween<Offset>(
+    begin: Offset.zero,
+    end: const Offset(1.5, 0.0),
+  ).animate(CurvedAnimation(
+    parent: _controller,
+    curve: Curves.bounceIn,
+  ));
+
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Material(
       child: Scaffold(
+        //
         appBar: const MyAppBar(title: "Playlists"),
+        //
         bottomNavigationBar: MyBottomNavBar(
             selectedItem: BottomNavBarSelectedItem.playlists.toString()),
+
+        //
         body: SingleChildScrollView(
           child: Column(children: [
             SizedBox(
@@ -27,28 +60,16 @@ class PlayListsPage extends StatelessWidget {
                   ),
                   itemCount: dummy.imageAssets.length,
                   itemBuilder: ((context, index) {
-                    return gridItemBuilder(index);
+                    return SlideTransition(
+                      position: _offsetAnimation,
+                      child: PlaylistsGridItem(index: index),
+                    );
+
+                    //return PlaylistsGridItem(index: index);
                   })),
             ),
           ]),
         ),
-      ),
-    );
-  }
-
-
-// TO DO: Create a Widget class 
-  Widget gridItemBuilder(int index) {
-    return Card(
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20))),
-      child: SizedBox(
-        height: 40,
-        width: 10,
-         child: ClipRRect(
-          borderRadius: const BorderRadius.all(Radius.circular(20)),
-          child: Image.asset(dummy.imageAssets[index])),
-
       ),
     );
   }
