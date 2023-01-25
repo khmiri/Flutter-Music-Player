@@ -17,23 +17,17 @@ class _PlayListsPageState extends State<PlayListsPage>
     with SingleTickerProviderStateMixin {
 
 
-  late final AnimationController _controller = AnimationController(
-    duration: const Duration(seconds: 1),
-    vsync: this,
-  );
+  
 
-  late final Animation<Offset> _offsetAnimation = Tween<Offset>(
-    begin: Offset.zero,
-    end: const Offset(1.5, 0.0),
-  ).animate(CurvedAnimation(
-    parent: _controller,
-    curve: Curves.bounceIn,
-  ));
+  late final Tween<double> _offsetAnimation = Tween<double>(
+    begin: 0.5,
+    end: 1,
+  );
 
 
   @override
   void dispose() {
-    _controller.dispose();
+   
     super.dispose();
   }
 
@@ -60,8 +54,10 @@ class _PlayListsPageState extends State<PlayListsPage>
                   ),
                   itemCount: dummy.imageAssets.length,
                   itemBuilder: ((context, index) {
-                    return SlideTransition(
-                      position: _offsetAnimation,
+                    return TweenAnimationBuilder(
+                      tween: _offsetAnimation,
+                      duration:  Duration(milliseconds:index==0? 100:100*(index+1)),
+                      builder: (context, value, child) =>  Transform.scale(scale: value,child: child,),
                       child: PlaylistsGridItem(index: index),
                     );
 
