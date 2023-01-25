@@ -16,20 +16,13 @@ class PlayListsPage extends StatefulWidget {
 class _PlayListsPageState extends State<PlayListsPage>
     with SingleTickerProviderStateMixin {
 
-
-  
-
-  late final Tween<double> _offsetAnimation = Tween<double>(
-    begin: 0.5,
-    end: 1,
+final Tween<Offset> _offsetAnimation = Tween<Offset>(
+    begin:const Offset(0,-20),
+    end:  Offset.zero,
   );
 
 
-  @override
-  void dispose() {
-   
-    super.dispose();
-  }
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -56,8 +49,9 @@ class _PlayListsPageState extends State<PlayListsPage>
                   itemBuilder: ((context, index) {
                     return TweenAnimationBuilder(
                       tween: _offsetAnimation,
+                      //curve: Curves.linear,
                       duration:  Duration(milliseconds:index==0? 100:100*(index+1)),
-                      builder: (context, value, child) =>  Transform.scale(scale: value,child: child,),
+                      builder: (context, value, child) =>  Transform.translate(offset: value,child: child,),
                       child: PlaylistsGridItem(index: index),
                     );
 
