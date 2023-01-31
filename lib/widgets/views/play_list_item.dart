@@ -106,7 +106,7 @@ class _PlayListItemState extends State<PlayListItem> {
                         Icons.play_circle_filled_rounded,
                         size: 50,
                       ),
-                      // TO DO : title must be passed by the contrustor 
+                      //TODO: title must be passed through the contrustor 
                       Text(
                         "Playlist name",
                         style: Theme.of(context).primaryTextTheme.bodyLarge,

@@ -25,7 +25,7 @@ class _MyHomePageState extends State<MyHomePage> {
     or liked songs' lsit
   */
   bool likedList = false;
-  int conditionalIndex=0;
+  int conditionalIndex = 0;
   @override
   Widget build(BuildContext context) {
     final querySize = MediaQuery.of(context).size;
@@ -49,7 +49,9 @@ class _MyHomePageState extends State<MyHomePage> {
             //
             SizedBox(
               width: querySize.width * .2,
+            //
               child: Column(
+                //
                 children: [
                   const SizedBox(
                     width: double.infinity,
@@ -63,24 +65,30 @@ class _MyHomePageState extends State<MyHomePage> {
                   SizedBox(
                     width: double.infinity,
                     height: 300,
-                    // decoration: const BoxDecoration(color: Colors.deepPurple),
+                    //
+                    // this is for [Liked] & [Recent] buttons
+                    //
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+
                           RotatedTextBtn(
                               myLable: "Recent",
+                              // this prop greys out the text in this button
                               disabled: likedList ? false : true,
                               myCallBack: (() {
+                                // changing the state after changing likedlist bool value
                                 setState(() {
                                   likedList = !likedList;
                                 });
                               })),
                           RotatedTextBtn(
                             myLable: "Liked",
-                            // this prop grey out the text in this button
+                            // this prop greys out the text in this button
                             disabled: likedList ? true : false,
                             myCallBack: (() {
+                              // changing the state after changing likedlist bool value
                               setState(() {
                                 likedList = !likedList;
                               });
@@ -91,27 +99,34 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
             ),
-            // second column
+            // second [column], the other hald of the screen
+            // that contains [ Your Playlist PageView Builder ]
+            // and List of songs beneath
+            //
             SizedBox(
               width: querySize.width * .8,
               child: Column(
                 children: [
                   SizedBox(
-                    //padding: const EdgeInsets.all(10),
                     width: double.infinity,
                     height: 350,
-                    // decoration: const BoxDecoration(color: Colors.purple),
                     child: PageView.builder(
                       /// [PageView.scrollDirection] defaults to [Axis.horizontal].
                       /// Use [Axis.vertical] to scroll vertically.
                       itemCount: 3,
+                      // this change the state of the selected or the displayed page 
+                      // inside the [PageView]
                       onPageChanged: (index) {
                         setState(() {
+                          // tells which index is diplayed 
+                          // so we can change the size of the whole item
                           selectedItem = index;
                         });
                       },
                       controller: controller,
                       padEnds: false,
+                      // building items inside the [PageView]
+                      // using a Custom widget calld [PlayListItem]
                       itemBuilder: ((context, index) => PlayListItem(
                             index: index,
                             selectedIndex: selectedItem,
@@ -119,6 +134,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           )),
                     ),
                   ),
+                  // this [container] will contain a list of listtiles,
+                  // display a song info
                   Container(
                     padding: const EdgeInsets.only(top: 10, bottom: 10),
                     width: double.infinity,
@@ -131,21 +148,20 @@ class _MyHomePageState extends State<MyHomePage> {
                       //by mapping through a list of songs (images and titles)
                       //
                       children: dummy.songs.map((e) {
-                       
                         // getting the index of the current item in the list
                         var index = dummy.songs.indexOf(e);
-                        // since we're using dummy data 
+                        // since we're using dummy data
                         // we will just reverse the list if we switch
                         // between liked songs or recent songs
                         // by reversing the index using [likedsongs] bool
                         //
-                         conditionalIndex= likedList
-                                ? (dummy.songs.length - index-1)
-                                : index;
+                        conditionalIndex = likedList
+                            ? (dummy.songs.length - index - 1)
+                            : index;
                         //using Custom widget called SongListTile
                         return SongListTile(
                             songData: dummy.songs[conditionalIndex]);
-                        // we usually use this line instead 
+                        // we usually use this line instead
                         // return SongListTile(songData: e);
                       }).toList(),
                     ),
