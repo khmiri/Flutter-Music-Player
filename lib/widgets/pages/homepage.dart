@@ -25,7 +25,7 @@ class _MyHomePageState extends State<MyHomePage> {
     or liked songs' lsit
   */
   bool likedList = false;
-
+  int conditionalIndex=0;
   @override
   Widget build(BuildContext context) {
     final querySize = MediaQuery.of(context).size;
@@ -139,7 +139,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         // between liked songs or recent songs
                         // by reversing the index using [likedsongs] bool
                         //
-                        int conditionalIndex= likedList
+                         conditionalIndex= likedList
                                 ? (dummy.songs.length - index-1)
                                 : index;
                         //using Custom widget called SongListTile
