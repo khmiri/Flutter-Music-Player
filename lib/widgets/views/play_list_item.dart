@@ -25,6 +25,12 @@ class _PlayListItemState extends State<PlayListItem> {
   Widget build(BuildContext context) {
     // [True] if this widget's index equals the selected item within the list ( in PageView)
     bool isSelected = (widget.index == widget.selectedIndex);
+     // we will use this Tween to add animation Playlist title [Text] and [Icon]
+    // using [TweenAnimationBuilder]
+    final Tween<Offset> _offsetAnimation = Tween<Offset>(
+      begin: const Offset(0, -20),
+      end: Offset.zero,
+    );
 
     // Align widget so we can adjust the item's size inside the PageView.
     return Align(
@@ -56,11 +62,60 @@ class _PlayListItemState extends State<PlayListItem> {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(30.0),
           //Album image path, if null, we'd use a placeholder
-          child: Image.asset(
-            widget.imagePath ?? "assets/images/ph.png",
-            height: isSelected ? 300 : 250,
-            width: 200,
-            fit: BoxFit.fitHeight,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [Image.asset(
+              widget.imagePath ?? "assets/images/ph.png",
+              height: 300,
+              //width: 200,
+              fit: BoxFit.fitHeight,
+            ),
+            // Showing Icon and title only if item is displayed ( selected )
+            isSelected?
+            TweenAnimationBuilder(
+            tween: _offsetAnimation,
+            // the bigger the index gets the slower it shows up
+            // depending on the index we're making longer duration for animation
+            // the index [0] has always 300 ms, index [1] will have 100*(1+1)=200 ms ...
+            //
+            duration:
+                Duration(milliseconds: widget.index == 0 ? 200 : 100 * (widget.index !+1 )),
+            // passing  Translate animation to this builder
+            // this will shift the child by the value of [_offsetAnimation]
+            // and all that will be animated
+            builder: (context, value, child) => Transform.translate(
+              offset: value,
+              child: child,
+            ),
+            // the child that will be animated
+           //
+            child: Align(
+              // Aligning the child [Column] to be in the bottom left of the stack widget
+                alignment: Alignment.bottomLeft,
+                child: Padding(
+                  // adding padding so the child does touch the edges of the stack widget [Card]
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    // property lets the column take children's height
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      // Icon widget, default color is white 
+                      const Icon(
+                        Icons.play_circle_filled_rounded,
+                        size: 50,
+                      ),
+                      // TO DO : title must be passed by the contrustor 
+                      Text(
+                        "Playlist name",
+                        style: Theme.of(context).primaryTextTheme.bodyLarge,
+                      ),
+                    ],
+                  ),
+                )),
+          ):const SizedBox(),
+            ]
           ),
         ),
       ),

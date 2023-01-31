@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:music_app/utils/constants.dart';
+import 'package:music_app/widgets/pages/search.dart';
 
 // this enum indicates all items in this BottomNavBar
 enum BottomNavBarSelectedItem { home, search, playlists, liked }
@@ -58,7 +59,7 @@ class MyBottomNavBar extends StatelessWidget {
             currentItem: BottomNavBarSelectedItem.search,
             myIcon: Icons.search,
             myCallBack: (() =>
-                Navigator.pushNamed(context, singleplaylistRoute)),
+                Navigator.pushNamed(context, searchRoute)),
           ),
           //
           //

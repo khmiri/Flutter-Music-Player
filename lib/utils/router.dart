@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:music_app/widgets/pages/homepage.dart';
 import 'package:music_app/widgets/pages/likedsongs.dart';
 import 'package:music_app/widgets/pages/playlistspage.dart';
+import 'package:music_app/widgets/pages/search.dart';
 import 'package:music_app/widgets/pages/singleplaylist.dart';
 import '../utils/constants.dart';
 
@@ -16,6 +17,8 @@ class MyRouter {
         return MaterialPageRoute(builder: (_) =>const PlayListsPage());
         case likedSongsRoute:
         return MaterialPageRoute(builder: (_) =>const LikedSongs());
+        case searchRoute:
+        return MaterialPageRoute(builder: (_) =>const SearchPage());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

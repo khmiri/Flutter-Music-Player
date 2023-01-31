@@ -2,4 +2,5 @@
 const String homeRoute = '/';
 const String singleplaylistRoute='/playlist';
 const String playlistsRoute = '/playlists';
-const String likedSongsRoute='likedsongs';
+const String likedSongsRoute='/likedsongs';
+const String searchRoute='/search';
