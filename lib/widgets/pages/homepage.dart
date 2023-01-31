@@ -7,21 +7,24 @@ import '../views/song_listtile.dart';
 import '../../utils/dummy_data.dart' as dummy;
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key,});
-
+  const MyHomePage({
+    super.key,
+  });
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-  
- enum BottomNavBarSelectedItem { home, search, playlists, liked }
-
+enum BottomNavBarSelectedItem { home, search, playlists, liked }
 
 class _MyHomePageState extends State<MyHomePage> {
   final PageController controller = PageController(viewportFraction: 0.8);
 
   int selectedItem = 0;
+  /* we using this bool to show either the recent songs' list 
+    or liked songs' lsit
+  */
+  bool likedList = false;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +36,9 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: const MyAppBar(title: "Discover"),
       //
       //Custom bottom navBar
-      bottomNavigationBar:  MyBottomNavBar(selectedItem: BottomNavBarSelectedItem.home.toString(),),
+      bottomNavigationBar: MyBottomNavBar(
+        selectedItem: BottomNavBarSelectedItem.home.toString(),
+      ),
       //
       body: SafeArea(
         child: SingleChildScrollView(
@@ -49,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   const SizedBox(
                     width: double.infinity,
                     height: 350,
-                    // Top/First button 
+                    // Top/First button
                     child: RotatedTextBtn(
                       myLable: "Your Playlists",
                       myIcon: Icons.collections,
@@ -62,14 +67,24 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           RotatedTextBtn(
-                            myLable: "Recent",
-                          ),
+                              myLable: "Recent",
+                              disabled: likedList ? false : true,
+                              myCallBack: (() {
+                                setState(() {
+                                  likedList = !likedList;
+                                });
+                              })),
                           RotatedTextBtn(
                             myLable: "Liked",
-                            disabled: true,
-                            //myIcon: Icons.collections,
+                            // this prop grey out the text in this button
+                            disabled: likedList ? true : false,
+                            myCallBack: (() {
+                              setState(() {
+                                likedList = !likedList;
+                              });
+                            }),
                           ),
                         ]),
                   )
@@ -108,7 +123,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     padding: const EdgeInsets.only(top: 10, bottom: 10),
                     width: double.infinity,
                     height: 300,
-                    
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -117,10 +131,22 @@ class _MyHomePageState extends State<MyHomePage> {
                       //by mapping through a list of songs (images and titles)
                       //
                       children: dummy.songs.map((e) {
-                        //Recent item ( ListTile )
+                       
+                        // getting the index of the current item in the list
+                        var index = dummy.songs.indexOf(e);
+                        // since we're using dummy data 
+                        // we will just reverse the list if we switch
+                        // between liked songs or recent songs
+                        // by reversing the index using [likedsongs] bool
+                        //
+                        int conditionalIndex= likedList
+                                ? (dummy.songs.length - index-1)
+                                : index;
                         //using Custom widget called SongListTile
-
-                        return SongListTile(songData: e);
+                        return SongListTile(
+                            songData: dummy.songs[conditionalIndex]);
+                        // we usually use this line instead 
+                        // return SongListTile(songData: e);
                       }).toList(),
                     ),
                   ),
@@ -132,9 +158,4 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
-
-
-  
 }
-
-
