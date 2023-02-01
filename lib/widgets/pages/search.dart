@@ -14,12 +14,16 @@ class SearchPage extends StatelessWidget {
         appBar: const MyAppBar(title: "Search",),
         bottomNavigationBar: MyBottomNavBar(selectedItem: BottomNavBarSelectedItem.search.toString()),
         body: SingleChildScrollView(child:  Column(children:  [
-           Container(
-            margin: const EdgeInsets.all(10),
-            padding:const EdgeInsets.all(3),
-            decoration:const BoxDecoration(color:Colors.black12,borderRadius: BorderRadius.all(Radius.circular(10))),
-             child:const TextField(decoration: InputDecoration(
-                      hintText: 'Search', border: InputBorder.none),),
+           Center(
+             child: Container(
+              width: MediaQuery.of(context).size.width*0.9,
+              margin: const EdgeInsets.all(10),
+              padding:const EdgeInsets.all(8),
+              decoration:const BoxDecoration(color:Colors.black12,borderRadius: BorderRadius.all(Radius.circular(10))),
+               child:const TextField(decoration: InputDecoration(
+                        hintText: 'Song, Playlist, Artist...', border: InputBorder.none),
+                        ),
+             ),
            )
         ],)),
       ),

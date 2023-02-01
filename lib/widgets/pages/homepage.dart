@@ -153,15 +153,17 @@ class _MyHomePageState extends State<MyHomePage> {
                         // since we're using dummy data
                         // we will just reverse the list if we switch
                         // between liked songs or recent songs
-                        // by reversing the index using [likedsongs] bool
+                        // by reversing the index using [likedlist] bool
                         //
+                        // [conditionalIndex] is var of type Int 
+                        // defined out of the build method
                         conditionalIndex = likedList
                             ? (dummy.songs.length - index - 1)
                             : index;
                         //using Custom widget called SongListTile
                         return SongListTile(
                             songData: dummy.songs[conditionalIndex]);
-                        // we usually use this line instead
+                        // we'll usually use this line instead
                         // return SongListTile(songData: e);
                       }).toList(),
                     ),
