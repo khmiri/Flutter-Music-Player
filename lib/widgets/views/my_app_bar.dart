@@ -16,22 +16,25 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.white,
       toolbarHeight: 100,
       shadowColor: Colors.transparent,
-      iconTheme:const IconThemeData(
+      iconTheme: const IconThemeData(
         color: Colors.black, //change your color here
       ),
       //a Row to add Two widgets besides eachother
       title: Row(children: [
-         Text(
-                title!,
-                style: const TextStyle(
-                  fontSize: 30,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-           
+       //
+       // Title of the page 
+       //
+        Text(
+          title!,
+          style: const TextStyle(
+            fontSize: 30,
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+
         //
-        // to give space between
+        // to add space between
         //
         Expanded(child: Container()),
 

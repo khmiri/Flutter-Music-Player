@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:music_app/utils/constants.dart';
-import 'package:music_app/widgets/pages/search.dart';
 
 // this enum indicates all items in this BottomNavBar
 enum BottomNavBarSelectedItem { home, search, playlists, liked }
@@ -26,7 +25,7 @@ class MyBottomNavBar extends StatelessWidget {
 
     /*  
         [navSelectedItem] is type enum, so we are going to use it below,
-        Inside Customs IconButton within this NavBar
+        Inside Custom IconButtons within this NavBar
   
     */
 
@@ -49,8 +48,11 @@ class MyBottomNavBar extends StatelessWidget {
             navSelectedItem: navSelectedItem,
             currentItem: BottomNavBarSelectedItem.home,
             myIcon: Icons.home_outlined,
-            myCallBack: (() =>
-                Navigator.pushNamed(context, homeRoute)),
+            myCallBack: (() {
+              if (navSelectedItem!=BottomNavBarSelectedItem.home) {
+                Navigator.pop(context);
+              }
+            }),
           ),
           //
           //
@@ -58,8 +60,9 @@ class MyBottomNavBar extends StatelessWidget {
             navSelectedItem: navSelectedItem,
             currentItem: BottomNavBarSelectedItem.search,
             myIcon: Icons.search,
-            myCallBack: (() =>
-                Navigator.pushNamed(context, searchRoute)),
+            myCallBack: (() {
+              Navigator.pushNamed(context, searchRoute);
+            }),
           ),
           //
           //
@@ -77,7 +80,9 @@ class MyBottomNavBar extends StatelessWidget {
             navSelectedItem: navSelectedItem,
             currentItem: BottomNavBarSelectedItem.liked,
             myIcon: Icons.favorite_outline,
-            myCallBack: (() => Navigator.pushNamed(context, likedSongsRoute)),
+            myCallBack: (() {
+              Navigator.pushNamed(context, likedSongsRoute);
+            }),
           ),
         ],
       ),
