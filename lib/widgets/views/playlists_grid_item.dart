@@ -13,7 +13,7 @@ class PlaylistsGridItem extends StatelessWidget {
   Widget build(BuildContext context) {
     // we will use this Tween to add animation Playlist title [Text] and [Icon]
     // using [TweenAnimationBuilder]
-    final Tween<Offset> _offsetAnimation = Tween<Offset>(
+    final Tween<Offset> offsetAnimation = Tween<Offset>(
       begin: const Offset(0, -20),
       end: Offset.zero,
     );
@@ -45,7 +45,7 @@ class PlaylistsGridItem extends StatelessWidget {
           //Using Tween Animation to animate the [Align] widget that contains 
           // our Playlist's Title [Text] and Play icon [Icon]
           TweenAnimationBuilder(
-            tween: _offsetAnimation,
+            tween: offsetAnimation,
             // the bigger the index gets the slower it shows up
             // depending on the index we're making longer duration for animation
             // the index [0] has always 300 ms, index [1] will have 100*(1+1)=200 ms ...
@@ -53,7 +53,7 @@ class PlaylistsGridItem extends StatelessWidget {
             duration:
                 Duration(milliseconds: index == 0 ? 200 : 100 * (index + 1)),
             // passing  Translate animation to this builder
-            // this will shift the child by the value of [_offsetAnimation]
+            // this will shift the child by the value of [offsetAnimation]
             // and all that will be animated
             builder: (context, value, child) => Transform.translate(
               offset: value,

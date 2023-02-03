@@ -22,7 +22,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   int selectedItem = 0;
   /* we using this bool to show either the recent songs' list 
-    or liked songs' lsit
+    or liked songs' list need to show up
   */
   bool likedList = false;
   int conditionalIndex = 0;
