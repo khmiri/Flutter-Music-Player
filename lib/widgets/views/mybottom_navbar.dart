@@ -29,64 +29,71 @@ class MyBottomNavBar extends StatelessWidget {
   
     */
 
-    return Container(
-      height: 100,
-      decoration: BoxDecoration(
-        color: Colors.grey.shade200,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(40),
-          topRight: Radius.circular(40),
+    return Stack(children: [
+      Container(
+        width: double.infinity,
+        height: 200,
+        decoration: BoxDecoration(color: Colors.deepPurple[100]),
+      ),
+      Container(
+        height: 100,
+        decoration: BoxDecoration(
+          color: Colors.grey.shade200,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(40),
+            topRight: Radius.circular(40),
+          ),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            //
+            //List of Custom Icon Button defined in Custom widget class the bottom of this page
+            //
+            NavBarIconButton(
+              navSelectedItem: navSelectedItem,
+              currentItem: BottomNavBarSelectedItem.home,
+              myIcon: Icons.home_outlined,
+              myCallBack: (() {
+                if (navSelectedItem != BottomNavBarSelectedItem.home) {
+                  Navigator.pop(context);
+                }
+              }),
+            ),
+            //
+            //
+            NavBarIconButton(
+              navSelectedItem: navSelectedItem,
+              currentItem: BottomNavBarSelectedItem.search,
+              myIcon: Icons.search,
+              myCallBack: (() {
+                Navigator.pushNamed(context, searchRoute);
+              }),
+            ),
+            //
+            //
+            NavBarIconButton(
+              navSelectedItem: navSelectedItem,
+              currentItem: BottomNavBarSelectedItem.playlists,
+              myIcon: Icons.collections_bookmark_outlined,
+              myCallBack: () {
+                Navigator.pushNamed(context, playlistsRoute);
+              },
+            ),
+            //
+            //
+            NavBarIconButton(
+              navSelectedItem: navSelectedItem,
+              currentItem: BottomNavBarSelectedItem.liked,
+              myIcon: Icons.favorite_outline,
+              myCallBack: (() {
+                Navigator.pushNamed(context, likedSongsRoute);
+              }),
+            ),
+          ],
         ),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          //
-          //List of Custom Icon Button defined in Custom widget class the bottom of this page
-          //
-          NavBarIconButton(
-            navSelectedItem: navSelectedItem,
-            currentItem: BottomNavBarSelectedItem.home,
-            myIcon: Icons.home_outlined,
-            myCallBack: (() {
-              if (navSelectedItem!=BottomNavBarSelectedItem.home) {
-                Navigator.pop(context);
-              }
-            }),
-          ),
-          //
-          //
-          NavBarIconButton(
-            navSelectedItem: navSelectedItem,
-            currentItem: BottomNavBarSelectedItem.search,
-            myIcon: Icons.search,
-            myCallBack: (() {
-              Navigator.pushNamed(context, searchRoute);
-            }),
-          ),
-          //
-          //
-          NavBarIconButton(
-            navSelectedItem: navSelectedItem,
-            currentItem: BottomNavBarSelectedItem.playlists,
-            myIcon: Icons.collections_bookmark_outlined,
-            myCallBack: () {
-              Navigator.pushNamed(context, playlistsRoute);
-            },
-          ),
-          //
-          //
-          NavBarIconButton(
-            navSelectedItem: navSelectedItem,
-            currentItem: BottomNavBarSelectedItem.liked,
-            myIcon: Icons.favorite_outline,
-            myCallBack: (() {
-              Navigator.pushNamed(context, likedSongsRoute);
-            }),
-          ),
-        ],
-      ),
-    );
+    ]);
   }
 }
 
