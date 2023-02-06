@@ -29,11 +29,17 @@ class MyBottomNavBar extends StatelessWidget {
   
     */
 
-    return Stack(children: [
+    return Stack(alignment: Alignment.bottomCenter, children: [
       Container(
         width: double.infinity,
-        height: 200,
-        decoration: BoxDecoration(color: Colors.deepPurple[100]),
+        height: 180,
+        decoration: BoxDecoration(
+          color: Colors.deepPurple[100],
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(40),
+            topRight: Radius.circular(40),
+          ),
+        ),
       ),
       Container(
         height: 100,
