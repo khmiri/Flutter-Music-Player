@@ -13,10 +13,14 @@ class SmallMusicDisc extends StatefulWidget {
 
 class _SmallMusicDiscState extends State<SmallMusicDisc>
     with SingleTickerProviderStateMixin {
+  // animation controller to animate
+  //the playing song's disc above the bottom nav bar
   late AnimationController animationController;
 
   @override
   initState() {
+    //
+    // intitialising the animation controller
     animationController = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 9),
@@ -27,13 +31,19 @@ class _SmallMusicDiscState extends State<SmallMusicDisc>
   @override
   void dispose() {
     super.dispose();
+    //
+    // disposign animation controlelr
     animationController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    //
+    // RotationTransition is the widget that will rotate our container
+    //
     return RotationTransition(
       turns: Tween(begin: 0.0, end: 1.0).animate(animationController),
+      // our circular container
       child: Container(
         height: 60,
         width: 60,
@@ -41,16 +51,29 @@ class _SmallMusicDiscState extends State<SmallMusicDisc>
             color: Colors.black,
             shape: BoxShape.circle,
             border: Border.all(width: 3, color: Colors.white),
-            boxShadow: const [
-              BoxShadow(
+            //adding shadow with two colors black38 and pink300
+            boxShadow: [
+              const BoxShadow(
                   color: Colors.black38,
                   blurRadius: 20,
                   spreadRadius: 5,
-                  offset: Offset(5, 4))
+                  offset: Offset(5, 4)),
+              BoxShadow(
+                  color: Colors.pink.shade100,
+                  blurRadius: 20,
+                  spreadRadius: 3,
+                  offset: const Offset(1, 2))
             ]),
+
+        //
+        //stack widget to draw above the circular shape
+        // so we can have a disc hole in the center
+        //
         child: Stack(alignment: Alignment.center, children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(60),
+            //Clipping the image
+            // TODO: image path needs to be passed through the constructor
             child: Image.asset(
               songs[0]["imgPath"],
               height: 60,
