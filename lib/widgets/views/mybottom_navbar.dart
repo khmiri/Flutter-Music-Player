@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:music_app/utils/constants.dart';
 
+import 'music_player.dart';
+
 // this enum indicates all items in this BottomNavBar
 enum BottomNavBarSelectedItem { home, search, playlists, liked }
 
@@ -30,17 +32,14 @@ class MyBottomNavBar extends StatelessWidget {
     */
 
     return Stack(alignment: Alignment.bottomCenter, children: [
-      Container(
-        width: double.infinity,
-        height: 180,
-        decoration: BoxDecoration(
-          color: Colors.deepPurple[100],
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(40),
-            topRight: Radius.circular(40),
-          ),
-        ),
-      ),
+      //
+      //we're using stack widget to show a music player widget below the bottom nav bar 
+      //
+      const MusicPlayer(),
+      //
+      //
+      //building the Bottom nav bar 
+      //
       Container(
         height: 100,
         decoration: BoxDecoration(
@@ -102,6 +101,8 @@ class MyBottomNavBar extends StatelessWidget {
     ]);
   }
 }
+
+
 
 //
 //Custom IconButton widget for BottomNavBar
