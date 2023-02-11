@@ -30,10 +30,12 @@ class _SmallMusicDiscState extends State<SmallMusicDisc>
 
   @override
   void dispose() {
-    super.dispose();
     //
     // disposign animation controlelr
     animationController.dispose();
+    
+    super.dispose();
+    
   }
 
   @override
