@@ -31,9 +31,9 @@ class _SmallMusicDiscState extends State<SmallMusicDisc>
   @override
   void dispose() {
     //
-    // disposign animation controlelr
+    // disposing animation controlelr
     animationController.dispose();
-    
+
     super.dispose();
     
   }
@@ -61,7 +61,7 @@ class _SmallMusicDiscState extends State<SmallMusicDisc>
                   spreadRadius: 5,
                   offset: Offset(5, 4)),
               BoxShadow(
-                  color: Colors.pink.shade100,
+                  color: Colors.pink.shade50,
                   blurRadius: 20,
                   spreadRadius: 3,
                   offset: const Offset(1, 2))

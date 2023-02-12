@@ -10,6 +10,9 @@ class MusicPlayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+
+      // a blue container above the bottom nav bar
+      // which will show the current playing song
         width: double.infinity,
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
         height: 200,
@@ -28,7 +31,9 @@ class MusicPlayer extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                   SmallMusicDisc(),
+                  // a small animated disc wich will show the image of the song
+                   const SmallMusicDisc(),
+                   // this column will contains the song's and the artist's name  
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,11 +51,14 @@ class MusicPlayer extends StatelessWidget {
                       ),
                     ],
                   ),
+                  // add to favorite icon button
                   const Icon(
                     Icons.favorite_border,
                     size: 30,
                     color: Colors.black,
                   ),
+
+                  // play and pause button
                   Container(
                     height: 50,
                     width: 50,
