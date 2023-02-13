@@ -51,7 +51,9 @@ class MusicPlayer extends StatelessWidget {
                       ),
                     ],
                   ),
+                  //
                   // add to favorite icon button
+                  //
                   InkWell(
                     child: const Icon(
                       Icons.favorite_border,
@@ -62,8 +64,9 @@ class MusicPlayer extends StatelessWidget {
                       // TODO: icon needs to change when clicked
                     },
                   ),
-
+                  //
                   // play and pause button
+                  //
                   InkWell(
                     child: Container(
                       height: 50,
