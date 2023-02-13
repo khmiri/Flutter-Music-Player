@@ -52,24 +52,34 @@ class MusicPlayer extends StatelessWidget {
                     ],
                   ),
                   // add to favorite icon button
-                  const Icon(
-                    Icons.favorite_border,
-                    size: 30,
-                    color: Colors.black,
+                  InkWell(
+                    child: const Icon(
+                      Icons.favorite_border,
+                      size: 30,
+                      color: Colors.black,
+                    ),
+                    onTap: () {
+                      // TODO: icon needs to change when clicked
+                    },
                   ),
 
                   // play and pause button
-                  Container(
-                    height: 50,
-                    width: 50,
-                    decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(20))),
-                    child: const Icon(
-                      Icons.play_arrow,
-                      color: Colors.black,
-                      size: 30,
+                  InkWell(
+                    child: Container(
+                      height: 50,
+                      width: 50,
+                      decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(20))),
+                      child: const Icon(
+                        Icons.play_arrow,
+                        color: Colors.black,
+                        size: 30,
+                      ),
                     ),
+                    onTap: () {
+                      // TODO: icon needs to change when clicked
+                    },
                   ),
                 ],
               ),
