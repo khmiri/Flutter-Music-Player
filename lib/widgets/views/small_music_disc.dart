@@ -4,8 +4,11 @@ import '../../utils/dummy_data.dart';
 
 class SmallMusicDisc extends StatefulWidget {
   const SmallMusicDisc({
+     required this.size,
     Key? key,
   }) : super(key: key);
+
+  final double? size;
 
   @override
   State<SmallMusicDisc> createState() => _SmallMusicDiscState();
@@ -46,9 +49,11 @@ class _SmallMusicDiscState extends State<SmallMusicDisc>
     return RotationTransition(
       turns: Tween(begin: 0.0, end: 1.0).animate(animationController),
       // our circular container
-      child: Container(
-        height: 60,
-        width: 60,
+      child: AnimatedContainer(
+        duration:const Duration(milliseconds: 150),
+        curve: Curves.linear,
+        height: widget.size,
+        width: widget.size,
         decoration: BoxDecoration(
             color: Colors.black,
             shape: BoxShape.circle,
@@ -73,18 +78,19 @@ class _SmallMusicDiscState extends State<SmallMusicDisc>
         //
         child: Stack(alignment: Alignment.center, children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(60),
+            borderRadius: BorderRadius.circular(widget.size!),
             //Clipping the image
             // TODO: image path needs to be passed through the constructor
             child: Image.asset(
               songs[0]["imgPath"],
-              height: 60,
-              width: 60,
+              height: widget.size,
+              width: widget.size,
+              fit: BoxFit.cover,
             ),
           ),
           Container(
-            height: 15,
-            width: 15,
+            height: widget.size!/4,
+            width: widget.size!/4,
             decoration: BoxDecoration(
                 color: const Color(0xffbae6f3),
                 shape: BoxShape.circle,
