@@ -12,8 +12,21 @@ class MusicPlayer extends StatefulWidget {
 }
 
 class _MusicPlayerState extends State<MusicPlayer> {
+
+  // for the container that conatains the music player controllers 
+  //above the bottom nav bar
   double playerHeight = 200;
+  // this boolean tells us if we're showing the music player 
+  // in fullsize or it's minimized
   bool fullsize = false;
+  //this boolean tells us if the song is playing so we can 
+  //change the play icon inside the button
+  bool isPlaying=false;
+  //
+  //favorite icon outlined when false, filled when true
+  //
+  bool isFav=false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -73,23 +86,26 @@ class _MusicPlayerState extends State<MusicPlayer> {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 30,
                     ),
                     //
                     // add to favorite icon button
                     //
                     InkWell(
-                      child: const Icon(
-                        Icons.favorite_border,
+                      child:  Icon(
+                        isFav?Icons.favorite:Icons.favorite_border,
                         size: 30,
                         color: Colors.black,
                       ),
                       onTap: () {
                         // TODO: icon needs to change when clicked
+                        setState(() {
+                          isFav=!isFav;
+                        });
                       },
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 30,
                     ),
 
@@ -104,14 +120,17 @@ class _MusicPlayerState extends State<MusicPlayer> {
                             color: Colors.white,
                             borderRadius:
                                 BorderRadius.all(Radius.circular(20))),
-                        child: const Icon(
-                          Icons.play_arrow,
+                        child:  Icon(
+                          isPlaying?Icons.pause:Icons.play_arrow,
                           color: Colors.black,
                           size: 30,
                         ),
                       ),
                       onTap: () {
                         // TODO: icon needs to change when clicked
+                        setState(() {
+                          isPlaying=!isPlaying;
+                        });
                       },
                     ),
                   ],
