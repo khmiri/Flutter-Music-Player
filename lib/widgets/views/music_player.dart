@@ -12,25 +12,24 @@ class MusicPlayer extends StatefulWidget {
 }
 
 class _MusicPlayerState extends State<MusicPlayer> {
-
-  // for the container that conatains the music player controllers 
+  // for the container that conatains the music player controllers
   //above the bottom nav bar
   double playerHeight = 200;
-  // this boolean tells us if we're showing the music player 
+  // this boolean tells us if we're showing the music player
   // in fullsize or it's minimized
   bool fullsize = false;
-  //this boolean tells us if the song is playing so we can 
+  //this boolean tells us if the song is playing so we can
   //change the play icon inside the button
-  bool isPlaying=false;
+  bool isPlaying = false;
   //
   //favorite icon outlined when false, filled when true
   //
-  bool isFav=false;
-
+  bool isFav = false;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      //behavior: HitTestBehavior.opaque,
       onTap: () {
         if (fullsize == false) changeHeight();
       },
@@ -58,14 +57,16 @@ class _MusicPlayerState extends State<MusicPlayer> {
                 height: fullsize ? 300 : 60,
                 child: Wrap(
                   alignment: WrapAlignment.center,
-                  direction: Axis.horizontal,
-                  crossAxisAlignment: WrapCrossAlignment.center,
+                 direction: Axis.horizontal,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                  //crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     // a small animated disc wich will show the image of the song
-                    SmallMusicDisc(size: fullsize ? 300 : 60),
-                     SizedBox(
-                      height: fullsize?50:0,
-                      width: fullsize?300:30,
+                    SmallMusicDisc(size: fullsize ? 200 : 60),
+                    //
+                    SizedBox(
+                      height: fullsize ? 60 : 0,
+                      width: fullsize ? 300 : 30,
                     ),
 
                     // this column will contains the song's and the artist's name
@@ -93,26 +94,27 @@ class _MusicPlayerState extends State<MusicPlayer> {
                     // add to favorite icon button
                     //
                     InkWell(
-                      child:  Icon(
-                        isFav?Icons.favorite:Icons.favorite_border,
+                      child: Icon(
+                        isFav ? Icons.favorite : Icons.favorite_border,
                         size: 30,
                         color: Colors.black,
                       ),
                       onTap: () {
                         // TODO: icon needs to change when clicked
                         setState(() {
-                          isFav=!isFav;
+                          isFav = !isFav;
                         });
                       },
                     ),
                     const SizedBox(
                       width: 30,
                     ),
+                    
 
                     //
                     // play and pause button
                     //
-                    InkWell(
+                    GestureDetector(
                       child: Container(
                         height: 50,
                         width: 50,
@@ -120,8 +122,8 @@ class _MusicPlayerState extends State<MusicPlayer> {
                             color: Colors.white,
                             borderRadius:
                                 BorderRadius.all(Radius.circular(20))),
-                        child:  Icon(
-                          isPlaying?Icons.pause:Icons.play_arrow,
+                        child: Icon(
+                          isPlaying ? Icons.pause : Icons.play_arrow,
                           color: Colors.black,
                           size: 30,
                         ),
@@ -129,7 +131,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
                       onTap: () {
                         // TODO: icon needs to change when clicked
                         setState(() {
-                          isPlaying=!isPlaying;
+                          isPlaying = !isPlaying;
                         });
                       },
                     ),
@@ -141,6 +143,8 @@ class _MusicPlayerState extends State<MusicPlayer> {
 
   void changeHeight() {
     setState(() {
+      // TODO: playerhigt needs to be SOLID
+
       if (playerHeight == 200) {
         playerHeight = 900;
         fullsize = !fullsize;

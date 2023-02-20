@@ -4,7 +4,7 @@ import '../../utils/dummy_data.dart';
 
 class SmallMusicDisc extends StatefulWidget {
   const SmallMusicDisc({
-     required this.size,
+    required this.size,
     Key? key,
   }) : super(key: key);
 
@@ -38,7 +38,6 @@ class _SmallMusicDiscState extends State<SmallMusicDisc>
     animationController.dispose();
 
     super.dispose();
-    
   }
 
   @override
@@ -50,27 +49,28 @@ class _SmallMusicDiscState extends State<SmallMusicDisc>
       turns: Tween(begin: 0.0, end: 1.0).animate(animationController),
       // our circular container
       child: AnimatedContainer(
-        duration:const Duration(milliseconds: 150),
+        duration: const Duration(milliseconds: 150),
         curve: Curves.linear,
         height: widget.size,
         width: widget.size,
         decoration: BoxDecoration(
-            color: Colors.black,
-            shape: BoxShape.circle,
-            border: Border.all(width: 3, color: Colors.white),
-            //adding shadow with two colors black38 and pink300
-            boxShadow: [
-              const BoxShadow(
-                  color: Colors.black38,
-                  blurRadius: 20,
-                  spreadRadius: 5,
-                  offset: Offset(5, 4)),
-              BoxShadow(
-                  color: Colors.pink.shade50,
-                  blurRadius: 20,
-                  spreadRadius: 3,
-                  offset: const Offset(1, 2))
-            ]),
+          color: Colors.black,
+          shape: BoxShape.circle,
+          border: Border.all(width: 3, color: Colors.white),
+          //adding shadow with two colors black38 and pink300
+          boxShadow: [
+            const BoxShadow(
+                color: Colors.black38,
+                blurRadius: 20,
+                spreadRadius: 5,
+                offset: Offset(5, 4)),
+            BoxShadow(
+                color: Colors.pink.shade50,
+                blurRadius: 20,
+                spreadRadius: 3,
+                offset: const Offset(1, 2))
+          ],
+        ),
 
         //
         //stack widget to draw above the circular shape
@@ -89,8 +89,8 @@ class _SmallMusicDiscState extends State<SmallMusicDisc>
             ),
           ),
           Container(
-            height: widget.size!/4,
-            width: widget.size!/4,
+            height: widget.size! / 4,
+            width: widget.size! / 4,
             decoration: BoxDecoration(
                 color: const Color(0xffbae6f3),
                 shape: BoxShape.circle,
