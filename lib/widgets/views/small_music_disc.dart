@@ -76,27 +76,30 @@ class _SmallMusicDiscState extends State<SmallMusicDisc>
         //stack widget to draw above the circular shape
         // so we can have a disc hole in the center
         //
-        child: Stack(alignment: Alignment.center, children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(widget.size!),
-            //Clipping the image
-            // TODO: image path needs to be passed through the constructor
-            child: Image.asset(
-              songs[0]["imgPath"],
-              height: widget.size,
-              width: widget.size,
-              fit: BoxFit.cover,
-            ),
-          ),
-          Container(
-            height: widget.size! / 4,
-            width: widget.size! / 4,
-            decoration: BoxDecoration(
-                color: const Color(0xffbae6f3),
-                shape: BoxShape.circle,
-                border: Border.all(width: 3, color: Colors.white)),
-          ),
-        ]),
+        
+        child: Stack(
+            alignment: Alignment.center,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(widget.size!),
+                //Clipping the image
+                // TODO: image path needs to be passed through the constructor
+                child: Image.asset(
+                  songs[0]["imgPath"],
+                  height: widget.size,
+                  width: widget.size,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              Container(
+                height: widget.size! / 4,
+                width: widget.size! / 4,
+                decoration: BoxDecoration(
+                    color: const Color(0xffbae6f3),
+                    shape: BoxShape.circle,
+                    border: Border.all(width: 3, color: Colors.white)),
+              ),
+            ]),
       ),
     );
   }

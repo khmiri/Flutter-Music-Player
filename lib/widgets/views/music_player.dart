@@ -30,6 +30,8 @@ class _MusicPlayerState extends State<MusicPlayer> {
   Widget build(BuildContext context) {
     return GestureDetector(
       //behavior: HitTestBehavior.opaque,
+      behavior: HitTestBehavior.translucent,
+
       onTap: () {
         if (fullsize == false) changeHeight();
       },
@@ -54,15 +56,15 @@ class _MusicPlayerState extends State<MusicPlayer> {
           child: Align(
               alignment: Alignment.topCenter,
               child: SizedBox(
-                height: fullsize ? 300 : 60,
+                height: fullsize ? 500 : 60,
                 child: Wrap(
-                  alignment: WrapAlignment.center,
-                 direction: Axis.horizontal,
-                crossAxisAlignment: WrapCrossAlignment.center,
+                  alignment: WrapAlignment.spaceEvenly,
+                  direction: Axis.horizontal,
+                  crossAxisAlignment: WrapCrossAlignment.center,
                   //crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     // a small animated disc wich will show the image of the song
-                    SmallMusicDisc(size: fullsize ? 200 : 60),
+                    SmallMusicDisc(size: fullsize ? 300 : 60),
                     //
                     SizedBox(
                       height: fullsize ? 60 : 0,
@@ -89,6 +91,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
                     ),
                     const SizedBox(
                       width: 30,
+                      
                     ),
                     //
                     // add to favorite icon button
@@ -109,12 +112,18 @@ class _MusicPlayerState extends State<MusicPlayer> {
                     const SizedBox(
                       width: 30,
                     ),
-                    
 
                     //
                     // play and pause button
                     //
                     GestureDetector(
+                         onTap: () {
+                        // TODO: icon needs to change when clicked
+                        setState(() {
+                          isPlaying = !isPlaying;
+                        });
+                      },
+                      behavior: HitTestBehavior.translucent,
                       child: Container(
                         height: 50,
                         width: 50,
@@ -128,12 +137,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
                           size: 30,
                         ),
                       ),
-                      onTap: () {
-                        // TODO: icon needs to change when clicked
-                        setState(() {
-                          isPlaying = !isPlaying;
-                        });
-                      },
+                   
                     ),
                   ],
                 ),
