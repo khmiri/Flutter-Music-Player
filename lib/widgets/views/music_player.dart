@@ -145,6 +145,12 @@ class _MusicPlayerState extends State<MusicPlayer> {
     );
   }
 
+
+
+  // this method needs to depend on the screen size 
+  // using ´MediaQuery´ 
+  // the height here is fixed and final, which causes unresponsive experience 
+
   void changeHeight() {
     setState(() {
       // TODO: playerhigt needs to be SOLID
