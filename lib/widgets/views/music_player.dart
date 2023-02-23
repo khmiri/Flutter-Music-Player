@@ -25,18 +25,27 @@ class _MusicPlayerState extends State<MusicPlayer> {
   //favorite icon outlined when false, filled when true
   //
   bool isFav = false;
+  //to get the screen's height
+  double screenHeight = 900;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      //behavior: HitTestBehavior.opaque,
-      behavior: HitTestBehavior.translucent,
+    //getting height of this screen
+    // so we can expand the music player's height depending on the screen's height when clicked
+    screenHeight = MediaQuery.of(context).size.height - 100;
 
+    return GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      // the music player height will change
+      // when the user tap within its bounds
+      // only if the player is minimized
       onTap: () {
-        if (fullsize == false) changeHeight();
+        if (fullsize == false) changeHeight(screenHeight);
       },
+      // the music player height will change
+      // when the user drag within its bounds
       onVerticalDragStart: (details) {
-        changeHeight();
+        changeHeight(screenHeight);
       },
       child: AnimatedContainer(
           duration: const Duration(milliseconds: 100),
@@ -61,11 +70,11 @@ class _MusicPlayerState extends State<MusicPlayer> {
                   alignment: WrapAlignment.spaceEvenly,
                   direction: Axis.horizontal,
                   crossAxisAlignment: WrapCrossAlignment.center,
-                  //crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     // a small animated disc wich will show the image of the song
                     SmallMusicDisc(size: fullsize ? 300 : 60),
-                    //
+                    //this sizedbox is used to seperate widgets when the container is expanded
+                    // so the next items in [Wrap] will be sent to new line
                     SizedBox(
                       height: fullsize ? 60 : 0,
                       width: fullsize ? 300 : 30,
@@ -91,23 +100,23 @@ class _MusicPlayerState extends State<MusicPlayer> {
                     ),
                     const SizedBox(
                       width: 30,
-                      
                     ),
                     //
                     // add to favorite icon button
                     //
                     InkWell(
-                      child: Icon(
-                        isFav ? Icons.favorite : Icons.favorite_border,
-                        size: 30,
-                        color: Colors.black,
-                      ),
                       onTap: () {
-                        // TODO: icon needs to change when clicked
+                        // [isFav] bool to change icon  when clicked
                         setState(() {
                           isFav = !isFav;
                         });
                       },
+                      child: Icon(
+                        // changing Favorite icon when [isFav] bool changed
+                        isFav ? Icons.favorite : Icons.favorite_border,
+                        size: 30,
+                        color: Colors.black,
+                      ),
                     ),
                     const SizedBox(
                       width: 30,
@@ -117,8 +126,8 @@ class _MusicPlayerState extends State<MusicPlayer> {
                     // play and pause button
                     //
                     GestureDetector(
-                         onTap: () {
-                        // TODO: icon needs to change when clicked
+                      onTap: () {
+                        // isPlaying bool to change pause/play icon when clicked
                         setState(() {
                           isPlaying = !isPlaying;
                         });
@@ -132,12 +141,12 @@ class _MusicPlayerState extends State<MusicPlayer> {
                             borderRadius:
                                 BorderRadius.all(Radius.circular(20))),
                         child: Icon(
+                          // changing play/pause icon when [isPlaying] bool changed
                           isPlaying ? Icons.pause : Icons.play_arrow,
                           color: Colors.black,
                           size: 30,
                         ),
                       ),
-                   
                     ),
                   ],
                 ),
@@ -145,18 +154,16 @@ class _MusicPlayerState extends State<MusicPlayer> {
     );
   }
 
+  // this method depend on the screen size to change the music player height
+  // using ´MediaQuery´
+  // fixed and final value causes unresponsive experience
 
-
-  // this method needs to depend on the screen size 
-  // using ´MediaQuery´ 
-  // the height here is fixed and final, which causes unresponsive experience 
-
-  void changeHeight() {
+  void changeHeight(mediaQueryHeight) {
     setState(() {
-      // TODO: playerhigt needs to be SOLID
+      // TODO: playerheight needs to be SOLID
 
       if (playerHeight == 200) {
-        playerHeight = 900;
+        playerHeight = mediaQueryHeight;
         fullsize = !fullsize;
       } else {
         playerHeight = 200;
