@@ -26,7 +26,7 @@ class _MusicPlayerState extends State<MusicPlayer>
   //favorite icon outlined when false, filled when true
   //
   bool isFav = false;
-  //to get the screen's height
+  //to get the screen's height, this value will change once build method starts
   double screenHeight = 900;
   // animating pause play icon
   late Animation<double> animation;
@@ -200,14 +200,16 @@ class _MusicPlayerState extends State<MusicPlayer>
     );
   }
 
+  
+  // implementing a feature that allows the user to toggle
+  // the size of a music player between a minimized and full-size state,
+  // based on the current height of the screen.
   // this method depend on the screen size to change the music player height
   // using ´MediaQuery´
   // fixed and final value causes unresponsive experience
 
   void changeHeight(mediaQueryHeight) {
     setState(() {
-      // TODO: playerheight needs to be SOLID
-
       if (playerHeight == 200) {
         playerHeight = mediaQueryHeight;
         fullsize = !fullsize;

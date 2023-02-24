@@ -13,18 +13,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-
-        // routes defined in a seperated file
+      // Defines the routes for the app
       onGenerateRoute: MyRouter.generateRoute,
+      // Sets the title of the app
 
       title: 'Music App Player',
+      // Sets the light theme of the app using the customLightTheme function
+
       theme: customLightTheme(),
+      // Sets the dark theme of the app using the customDarkTheme function
 
       darkTheme: customDarkTheme(),
-      
+      // Sets the initial route of the app
+
       initialRoute: homeRoute,
-     
     );
   }
 }
-
