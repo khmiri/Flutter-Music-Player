@@ -79,6 +79,11 @@ class _MusicPlayerState extends State<MusicPlayer> {
                       height: fullsize ? 60 : 0,
                       width: fullsize ? 300 : 30,
                     ),
+                    const LinearProgressIndicator(
+                      backgroundColor: Colors.black,
+                       value: 30,
+                      minHeight: 3,
+                    ),
 
                     // this column will contains the song's and the artist's name
                     Column(
