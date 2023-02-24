@@ -11,7 +11,8 @@ class MusicPlayer extends StatefulWidget {
   State<MusicPlayer> createState() => _MusicPlayerState();
 }
 
-class _MusicPlayerState extends State<MusicPlayer> with SingleTickerProviderStateMixin{
+class _MusicPlayerState extends State<MusicPlayer>
+    with SingleTickerProviderStateMixin {
   // for the container that conatains the music player controllers
   //above the bottom nav bar
   double playerHeight = 200;
@@ -28,31 +29,28 @@ class _MusicPlayerState extends State<MusicPlayer> with SingleTickerProviderStat
   //to get the screen's height
   double screenHeight = 900;
   // animating pause play icon
-    late Animation<double> animation;
+  late Animation<double> animation;
 
-    late AnimationController controller;
+  late AnimationController controller;
 
- @override
-    void initState(){
-      super.initState();
+  @override
+  void initState() {
+    super.initState();
 
-      //initiate animation controller
-      // will be used to animate pause/play icon within play button
+    //initializing animation controller
+    // will be used to animate pause/play icon within play button
 
-      controller = AnimationController(
+    controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 100),
-    )
-      ..forward();
+      duration: const Duration(milliseconds: 10),
+    );
 
-      //initaite animation tween type double
-      // will be used to animate oause/play icon 
-      animation = Tween<double>(begin: 0.0, end: 1.0).animate(controller);
+    //initializing animation tween type double
+    // will be used to animate oause/play icon
+    animation = Tween<double>(begin: 0.0, end: 1.0).animate(controller);
+  }
 
-    }
-
-
-    @override
+  @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
@@ -66,7 +64,6 @@ class _MusicPlayerState extends State<MusicPlayer> with SingleTickerProviderStat
     //getting height of this screen
     // so we can expand the music player's height depending on the screen's height when clicked
     screenHeight = MediaQuery.of(context).size.height - 100;
-   
 
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
@@ -113,12 +110,13 @@ class _MusicPlayerState extends State<MusicPlayer> with SingleTickerProviderStat
                       height: fullsize ? 60 : 0,
                       width: fullsize ? 300 : 30,
                     ),
-                    fullsize?
-                    const LinearProgressIndicator(
-                      backgroundColor: Colors.black,
-                       value: 30,
-                      minHeight: 3,
-                    ):const SizedBox(),
+                    fullsize
+                        ? const LinearProgressIndicator(
+                            backgroundColor: Colors.black,
+                            value: 30,
+                            minHeight: 3,
+                          )
+                        : const SizedBox(),
 
                     // this column will contains the song's and the artist's name
                     Column(
@@ -171,29 +169,28 @@ class _MusicPlayerState extends State<MusicPlayer> with SingleTickerProviderStat
                         setState(() {
                           isPlaying = !isPlaying;
                         });
-                        if(isPlaying){
+                        if (isPlaying) {
                           controller.reverse();
-                        }else{
+                        } else {
                           controller.forward();
                         }
-                        
                       },
                       behavior: HitTestBehavior.translucent,
                       child: Container(
-                        height: fullsize?200:50,
-                        width: fullsize?200:50,
+                        height: fullsize ? 200 : 50,
+                        width: fullsize ? 200 : 50,
                         alignment: Alignment.center,
-                        decoration:  BoxDecoration(
+                        decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(fullsize?50:20))),
+                            borderRadius: BorderRadius.all(
+                                Radius.circular(fullsize ? 50 : 20))),
                         child: AnimatedIcon(
                           // changing play/pause icon when [isPlaying] bool changed
                           //isPlaying ? Icons.pause : Icons.play_arrow,
-                          icon:AnimatedIcons.pause_play,
+                          icon: AnimatedIcons.pause_play,
                           progress: animation,
                           color: Colors.black,
-                          size: fullsize?100:30,
+                          size: fullsize ? 100 : 30,
                         ),
                       ),
                     ),
