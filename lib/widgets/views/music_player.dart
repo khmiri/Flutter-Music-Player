@@ -177,8 +177,9 @@ class _MusicPlayerState extends State<MusicPlayer>
                       },
                       behavior: HitTestBehavior.translucent,
                       child: Container(
-                        height: fullsize ? 200 : 50,
-                        width: fullsize ? 200 : 50,
+                        margin: EdgeInsets.all(fullsize?50:0),
+                        height: fullsize ? 150 : 50,
+                        width: fullsize ? 150 : 50,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
                             color: Colors.white,
