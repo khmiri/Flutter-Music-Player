@@ -98,7 +98,7 @@ class _MusicPlayerState extends State<MusicPlayer>
               child: SizedBox(
                 height: fullsize ? 600 : 60,
                 child: Wrap(
-                  alignment: WrapAlignment.spaceEvenly,
+                  alignment: WrapAlignment.center,
                   direction: Axis.horizontal,
                   crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
@@ -110,13 +110,24 @@ class _MusicPlayerState extends State<MusicPlayer>
                       height: fullsize ? 60 : 0,
                       width: fullsize ? 300 : 30,
                     ),
-                    fullsize
-                        ? const LinearProgressIndicator(
-                            backgroundColor: Colors.black,
-                            value: 30,
-                            minHeight: 3,
-                          )
-                        : const SizedBox(),
+
+                    // showing audio progress bar
+                    // when the container ( music player) is expanded
+                    if (fullsize) ...[
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * .7,
+                        child: const LinearProgressIndicator(
+                          backgroundColor: Colors.black,
+                          value: 30,
+                          minHeight: 3,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 60,
+                      )
+                    ] else
+                      const SizedBox(),
+                   
 
                     // this column will contains the song's and the artist's name
                     Column(
@@ -177,7 +188,7 @@ class _MusicPlayerState extends State<MusicPlayer>
                       },
                       behavior: HitTestBehavior.translucent,
                       child: Container(
-                        margin: EdgeInsets.all(fullsize?50:0),
+                        margin: EdgeInsets.all(fullsize ? 50 : 0),
                         height: fullsize ? 150 : 50,
                         width: fullsize ? 150 : 50,
                         alignment: Alignment.center,
@@ -201,7 +212,6 @@ class _MusicPlayerState extends State<MusicPlayer>
     );
   }
 
-  
   // implementing a feature that allows the user to toggle
   // the size of a music player between a minimized and full-size state,
   // based on the current height of the screen.
