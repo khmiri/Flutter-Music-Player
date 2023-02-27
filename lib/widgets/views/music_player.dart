@@ -13,9 +13,9 @@ class MusicPlayer extends StatefulWidget {
 
 class _MusicPlayerState extends State<MusicPlayer>
     with SingleTickerProviderStateMixin {
-  // for the container that conatains the music player controllers
+  // for the container that contains the music player controllers
   //above the bottom nav bar
-  double playerHeight = 200;
+  double playerHeight = 200; // minimized
   // this boolean tells us if we're showing the music player
   // in fullsize or it's minimized
   bool fullsize = false;
@@ -42,7 +42,7 @@ class _MusicPlayerState extends State<MusicPlayer>
 
     controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 10),
+      duration: const Duration(milliseconds: 200),
     );
 
     //initializing animation tween type double
@@ -63,7 +63,7 @@ class _MusicPlayerState extends State<MusicPlayer>
   Widget build(BuildContext context) {
     //getting height of this screen
     // so we can expand the music player's height depending on the screen's height when clicked
-    screenHeight = MediaQuery.of(context).size.height - 100;
+    screenHeight = MediaQuery.of(context).size.height-100;
 
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
@@ -79,136 +79,142 @@ class _MusicPlayerState extends State<MusicPlayer>
         changeHeight(screenHeight);
       },
       child: AnimatedContainer(
-          duration: const Duration(milliseconds: 100),
-          curve: Curves.bounceOut,
-          // a blue container above the bottom nav bar
-          // which will show the current playing song
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-          height: playerHeight,
-          decoration: const BoxDecoration(
-            color: Color(0xffbae6f3),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(40),
-              topRight: Radius.circular(40),
-            ),
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.easeIn,
+        // a blue container above the bottom nav bar
+        // which will show the current playing song
+        width: double.infinity,
+        padding: fullsize
+            ? const EdgeInsets.all(5)
+            : const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+        height: playerHeight,
+        decoration:const BoxDecoration(
+          color:   Color(0xffbae6f3),
+          borderRadius:  BorderRadius.only(
+            topLeft: Radius.circular(40),
+            topRight: Radius.circular(40),
           ),
-          child: Align(
-              alignment: Alignment.topCenter,
-              child: SizedBox(
-                height: fullsize ? 600 : 60,
-                child: Wrap(
-                  alignment: WrapAlignment.center,
-                  direction: Axis.horizontal,
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  children: [
-                    // a small animated disc wich will show the image of the song
-                    SmallMusicDisc(size: fullsize ? 300 : 60),
-                    //this sizedbox is used to seperate widgets when the container is expanded
-                    // so the next items in [Wrap] will be sent to new line
-                    SizedBox(
-                      height: fullsize ? 60 : 0,
-                      width: fullsize ? 300 : 30,
-                    ),
+        ),
+        child: Align(
+          alignment: Alignment.topCenter,
+          child: SizedBox(
+            height: fullsize ? playerHeight : 60,
+            width: MediaQuery.of(context).size.width,
+            child: Wrap(
+              alignment:WrapAlignment.center,
+              direction: Axis.horizontal,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: [
+                
 
-                    // showing audio progress bar
-                    // when the container ( music player) is expanded
-                    if (fullsize) ...[
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * .7,
-                        child: const LinearProgressIndicator(
-                          backgroundColor: Colors.black,
-                          value: 30,
-                          minHeight: 3,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 60,
-                      )
-                    ] else
-                      const SizedBox(),
-                   
+                // a small animated disc wich will show the image of the song
+                SmallMusicDisc(size: fullsize ? 300 : 60),
+                //this sizedbox is used to seperate widgets when the container is expanded
+                // so the next items in [Wrap] will be sent to new line
+                SizedBox(
+                  height: fullsize ? 60 : 0,
+                  width: fullsize ? 300 : 30,
+                ),
 
-                    // this column will contains the song's and the artist's name
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text(
-                          "Songs name",
-                          style: TextStyle(
-                              color: Colors.black54,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          "Songs name",
-                          style: TextStyle(color: Colors.black54, fontSize: 12),
-                        ),
-                      ],
+                // showing audio progress bar
+                // when the container ( music player) is expanded
+                if (fullsize) ...[
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * .7,
+                    child: const LinearProgressIndicator(
+                      backgroundColor: Colors.black,
+                      value: 30,
+                      minHeight: 3,
                     ),
-                    const SizedBox(
-                      width: 30,
-                    ),
-                    //
-                    // add to favorite icon button
-                    //
-                    InkWell(
-                      onTap: () {
-                        // [isFav] bool to change icon  when clicked
-                        setState(() {
-                          isFav = !isFav;
-                        });
-                      },
-                      child: Icon(
-                        // changing Favorite icon when [isFav] bool changed
-                        isFav ? Icons.favorite : Icons.favorite_border,
-                        size: 30,
-                        color: Colors.black,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 30,
-                    ),
+                  ),
+                  const SizedBox(
+                    height: 60,
+                  )
+                ] else
+                  const SizedBox(),
 
-                    //
-                    // play and pause button
-                    //
-                    GestureDetector(
-                      onTap: () {
-                        // isPlaying bool to change pause/play icon when clicked
-                        setState(() {
-                          isPlaying = !isPlaying;
-                        });
-                        if (isPlaying) {
-                          controller.reverse();
-                        } else {
-                          controller.forward();
-                        }
-                      },
-                      behavior: HitTestBehavior.translucent,
-                      child: Container(
-                        margin: EdgeInsets.all(fullsize ? 50 : 0),
-                        height: fullsize ? 150 : 50,
-                        width: fullsize ? 150 : 50,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(
-                                Radius.circular(fullsize ? 50 : 20))),
-                        child: AnimatedIcon(
-                          // changing play/pause icon when [isPlaying] bool changed
-                          //isPlaying ? Icons.pause : Icons.play_arrow,
-                          icon: AnimatedIcons.pause_play,
-                          progress: animation,
-                          color: Colors.black,
-                          size: fullsize ? 100 : 30,
-                        ),
-                      ),
+                // this column will contains the song's and the artist's name
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Text(
+                      "Songs name",
+                      style: TextStyle(
+                          color: Colors.black54,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      "Songs name",
+                      style: TextStyle(color: Colors.black54, fontSize: 12),
                     ),
                   ],
                 ),
-              ))),
+                const SizedBox(
+                  width: 30,
+                ),
+                //
+                // add to favorite icon button
+                //
+                InkWell(
+                  onTap: () {
+                    // [isFav] bool to change icon  when clicked
+                    setState(() {
+                      isFav = !isFav;
+                    });
+                  },
+                  child: Icon(
+                    // changing Favorite icon when [isFav] bool changed
+                    isFav ? Icons.favorite : Icons.favorite_border,
+                    size: 30,
+                    color: Colors.black,
+                  ),
+                ),
+                const SizedBox(
+                  width: 30,
+                ),
+
+                //
+                // play and pause button
+                //
+                GestureDetector(
+                  onTap: () {
+                    // isPlaying bool to change pause/play icon when clicked
+                    setState(() {
+                      isPlaying = !isPlaying;
+                    });
+                    if (isPlaying) {
+                      controller.reverse();
+                    } else {
+                      controller.forward();
+                    }
+                  },
+                  behavior: HitTestBehavior.translucent,
+                  child: Container(
+                    margin: EdgeInsets.all(fullsize ? 50 : 0),
+                    height: fullsize ? 150 : 50,
+                    width: fullsize ? 150 : 50,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(
+                            Radius.circular(fullsize ? 50 : 20))),
+                    child: AnimatedIcon(
+                      // changing play/pause icon when [isPlaying] bool changed
+                      //isPlaying ? Icons.pause : Icons.play_arrow,
+                      icon: AnimatedIcons.pause_play,
+                      progress: animation,
+                      color: Colors.black,
+                      size: fullsize ? 100 : 30,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 
