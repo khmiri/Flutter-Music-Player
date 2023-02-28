@@ -85,7 +85,7 @@ class _MusicPlayerState extends State<MusicPlayer>
         // which will show the current playing song
         width: double.infinity,
         padding: fullsize
-            ? const EdgeInsets.all(5)
+            ? const EdgeInsets.all(10)
             : const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
         height: playerHeight,
         decoration:const BoxDecoration(
