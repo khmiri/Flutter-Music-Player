@@ -52,7 +52,6 @@ class _MusicPlayerState extends State<MusicPlayer>
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
 
     // disposing controller
